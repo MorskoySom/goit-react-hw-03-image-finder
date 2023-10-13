@@ -1,17 +1,19 @@
-export const Searchbar = () => {
-    return (<header class="searchbar">
-        <form class="form">
-            <button type="submit" class="button">
-                <span class="button-label">Search</span>
-            </button>
+import { HeaderBlock, Forma, FormButton, FormInput } from './Searchbar.styled'
 
-            <input
+export const Searchbar = () => {
+    return (<HeaderBlock>
+        <Forma>
+            <FormButton type="submit">
+                <span class="button-label">Search</span>
+            </FormButton>
+
+            <FormInput
                 class="input"
                 type="text"
                 autocomplete="off"
                 autofocus
                 placeholder="Search images and photos"
             />
-        </form>
-    </header>)
+        </Forma>
+    </HeaderBlock>)
 }
