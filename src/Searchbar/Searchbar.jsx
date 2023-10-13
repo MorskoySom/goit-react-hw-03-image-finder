@@ -8,7 +8,6 @@ export const Searchbar = () => {
             </FormButton>
 
             <FormInput
-                class="input"
                 type="text"
                 autocomplete="off"
                 autofocus

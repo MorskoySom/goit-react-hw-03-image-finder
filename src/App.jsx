@@ -36,7 +36,7 @@ export class App extends Component {
   render() {
     return <div>
       <Searchbar />
-      {this.state.galleryItems.length > 0 && <ImageGallery />}
+      {this.state.galleryItems.length > 0 && <ImageGallery images={this.galleryItems} />}
       <ImageGallery />
       <Btn onClick={this.handleLoadMore} />
       {this.state.loading && <Loader />}
@@ -44,3 +44,16 @@ export class App extends Component {
 
   }
 }
+
+// import React from "react";
+// import { Contact } from "Element/Element";
+
+// export const ContactList = ({ persons, toDelete }) => {
+//   return (
+//     <ul>{persons.map(person => (
+//       <li key={person.id}>
+//         <Contact info={person} toDelete={toDelete} />
+//       </li>
+//     ))}
+//     </ul>)
+// }
