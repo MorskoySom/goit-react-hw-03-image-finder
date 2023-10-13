@@ -4,13 +4,13 @@ export const Searchbar = () => {
     return (<HeaderBlock>
         <Forma>
             <FormButton type="submit">
-                <span class="button-label">Search</span>
+                <span>Search</span>
             </FormButton>
 
             <FormInput
                 type="text"
-                autocomplete="off"
-                autofocus
+                autoComplete="off"
+                autoFocus
                 placeholder="Search images and photos"
             />
         </Forma>

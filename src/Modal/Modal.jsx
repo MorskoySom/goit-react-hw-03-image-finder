@@ -1,6 +1,6 @@
 export const Modal = () => {
-    return (<div class="overlay">
-        <div class="modal">
+    return (<div>
+        <div>
             <img src="" alt="" />
         </div>
     </div>)
