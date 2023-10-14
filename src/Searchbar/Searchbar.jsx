@@ -1,6 +1,6 @@
 import { HeaderBlock, Forma, FormButton, FormInput } from './Searchbar.styled'
 
-export const Searchbar = () => {
+export const Searchbar = ({ toSubmit }) => {
     return (<HeaderBlock>
         <Forma>
             <FormButton type="submit">

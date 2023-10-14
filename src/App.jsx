@@ -20,6 +20,7 @@ export class App extends Component {
     const API_KEY = '39170790-720d13338eae2dc65ab148b0f';
     const params = new URLSearchParams({
       key: API_KEY,
+      q: this.query,
       image_type: "photo",
       orientation: "horizontal",
       safesearch: true,
@@ -63,7 +64,7 @@ export class App extends Component {
   render() {
     const { galleryItems, loading } = this.state;
     return <div>
-      <Searchbar />
+      <Searchbar toSubmit={this.handleSubmit} />
       {this.state.galleryItems.length > 0 && <ImageGallery images={galleryItems} />}
       <ImageGallery images={galleryItems} />
       <Btn onClick={this.handleLoadMore} />
