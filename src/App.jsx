@@ -1,4 +1,4 @@
-import axios from "axios";
+import { fetchImages } from './api';
 import { Btn } from "Button/Button";
 import { ImageGallery } from "ImageGallery/ImageGallery";
 import { Loader } from "Loader/Loader";
@@ -16,24 +16,13 @@ export class App extends Component {
   }
 
   async componentDidMount() {
-    const BASE_URL = 'https://pixabay.com/api/';
-    const API_KEY = '39170790-720d13338eae2dc65ab148b0f';
-    const params = new URLSearchParams({
-      key: API_KEY,
-      // q: this.query,
-      image_type: "photo",
-      orientation: "horizontal",
-      safesearch: true,
-      per_page: 12,
-      page: 1
-    });
 
     this.setState({ loading: true });
 
     try {
-      const response = await axios.get(`${BASE_URL}?${params}`);
-      this.setState({ galleryItems: response.data.hits });
-      console.log(response.data);
+      const pictures = await fetchImages();
+      this.setState({ galleryItems: pictures.data.hits });
+      console.log(pictures.data);
     } catch (error) {
       this.setState({ error });
     } finally {

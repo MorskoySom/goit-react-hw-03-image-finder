@@ -1,18 +1,28 @@
-import { HeaderBlock, Forma, FormButton, FormInput } from './Searchbar.styled'
+import React, { Component } from 'react';
+import { HeaderBlock, Forma, FormButton, FormInput } from './Searchbar.styled';
 
-export const Searchbar = ({ toSubmit }) => {
-    return (<HeaderBlock>
-        <Forma onSubmit={values => { console.log(values) }}>
-            <FormButton type="submit">
-                <span>Search</span>
-            </FormButton>
+export class Searchbar extends Component {
+    handleSubmit = (evt) => {
+        evt.preventDefault();
+        console.log(evt);
+    }
 
-            <FormInput
-                type="text"
-                autoComplete="off"
-                autoFocus
-                placeholder="Search images and photos"
-            />
-        </Forma>
-    </HeaderBlock>)
+    render() {
+        return (
+            <HeaderBlock>
+                <Forma onSubmit={this.handleSubmit}>
+                    <FormButton type="submit">
+                        <span>Search</span>
+                    </FormButton>
+
+                    <FormInput
+                        type="text"
+                        autoComplete="off"
+                        autoFocus
+                        placeholder="Search images and photos"
+                    />
+                </Forma>
+            </HeaderBlock>
+        );
+    }
 }
