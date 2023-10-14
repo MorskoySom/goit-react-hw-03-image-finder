@@ -61,7 +61,7 @@ export class App extends Component {
   }
 
   render() {
-    const { galleryItems, loading, error } = this.state;
+    const { galleryItems, loading } = this.state;
     return <div>
       <Searchbar />
       {this.state.galleryItems.length > 0 && <ImageGallery images={galleryItems} />}
