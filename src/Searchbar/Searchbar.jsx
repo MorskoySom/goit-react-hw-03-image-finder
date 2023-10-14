@@ -2,7 +2,7 @@ import { HeaderBlock, Forma, FormButton, FormInput } from './Searchbar.styled'
 
 export const Searchbar = ({ toSubmit }) => {
     return (<HeaderBlock>
-        <Forma>
+        <Forma onSubmit={values => { console.log(values) }}>
             <FormButton type="submit">
                 <span>Search</span>
             </FormButton>
