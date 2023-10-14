@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import { HeaderBlock, Forma, FormButton, FormInput } from './Searchbar.styled';
 
 export class Searchbar extends Component {
+    state = {
+        inputQuery: "",
+    }
+
+    handleChange = (evt) => {
+        this.setState({ inputQuery: evt.target.value });
+    }
+
     handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log(evt);
+        console.log(this.state.inputQuery);
     }
 
     render() {
@@ -20,6 +28,8 @@ export class Searchbar extends Component {
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
+                        value={this.state.inputQuery}
+                        onChange={this.handleChange}
                     />
                 </Forma>
             </HeaderBlock>

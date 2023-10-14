@@ -21,8 +21,8 @@ export class App extends Component {
 
     try {
       const pictures = await fetchImages();
-      this.setState({ galleryItems: pictures.data.hits });
-      console.log(pictures.data);
+      this.setState({ galleryItems: pictures.hits });
+      console.log(pictures);
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -30,12 +30,14 @@ export class App extends Component {
     }
   }
 
-  handleSubmit = (evt) => {
-    evt.preventDefault();
-    // зберігаємо query - параметр пошуку
-    // скидаємо page до 1
-    // очистити масив galleryItems
+  handleSubmit = (query) => {
+    this.setState({
+      query: query,
+      page: 1,
+      galleryItems: [],
+    }, this.fetchImages);
   }
+
 
   handleLoadMore = () => {
     this.setState(prevState => prevState.page + 1);
