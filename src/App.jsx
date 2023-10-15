@@ -7,7 +7,7 @@ import { Component } from "react";
 
 export class App extends Component {
   state = {
-    query: "",
+    query: 'cat',
     page: 1,
     galleryItems: [],
     loading: false,
@@ -15,18 +15,23 @@ export class App extends Component {
     error: false,
   }
 
-  async componentDidMount() {
+  getImages = async () => {
+    const { query, page } = this.state;
 
     this.setState({ loading: true });
 
     try {
-      const pictures = await fetchImages();
+      const pictures = await fetchImages(query, page);
       this.setState({ galleryItems: pictures.hits });
     } catch (error) {
       this.setState({ error });
     } finally {
       this.setState({ loading: false })
     }
+  }
+
+  componentDidMount() {
+    this.getImages();
   }
 
   handleSubmit = (query) => {
@@ -46,19 +51,17 @@ export class App extends Component {
       prevState.query !== this.state.query ||
       prevState.page !== this.state.page
     ) {
-      // HTTP-запит
+      this.getImages();
     }
   }
 
   render() {
-    const { galleryItems, loading } = this.state;
+    const { galleryItems, loading, query } = this.state;
     return <div>
       <Searchbar toSubmit={this.handleSubmit} />
       {this.state.galleryItems.length > 0 && <ImageGallery images={galleryItems} />}
-      <ImageGallery images={galleryItems} />
       <Btn onClick={this.handleLoadMore} />
       {loading && <Loader />}
     </div>;
-
   }
 }
