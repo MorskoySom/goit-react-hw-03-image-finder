@@ -22,7 +22,6 @@ export class App extends Component {
     try {
       const pictures = await fetchImages();
       this.setState({ galleryItems: pictures.hits });
-      console.log(pictures);
     } catch (error) {
       this.setState({ error });
     } finally {
@@ -35,9 +34,8 @@ export class App extends Component {
       query: query,
       page: 1,
       galleryItems: [],
-    }, this.fetchImages);
+    });
   }
-
 
   handleLoadMore = () => {
     this.setState(prevState => prevState.page + 1);
