@@ -1,3 +1,4 @@
+import { AllApp } from 'App.styled';
 import { fetchImages } from './api';
 import { Btn } from "Button/Button";
 import { ImageGallery } from "ImageGallery/ImageGallery";
@@ -7,7 +8,7 @@ import { Component } from "react";
 
 export class App extends Component {
   state = {
-    query: 'cat',
+    query: '',
     page: 1,
     galleryItems: [],
     loading: false,
@@ -18,13 +19,17 @@ export class App extends Component {
   getImages = async () => {
     const { query, page } = this.state;
 
-    this.setState({ loading: true });
-
     try {
+      this.setState({ loading: true, error: false });
+      // const pictures = await fetchImages(query, page);
+      // this.setState({ galleryItems: pictures.hits });
       const pictures = await fetchImages(query, page);
-      this.setState({ galleryItems: pictures.hits });
+      this.setState(prevState => ({
+        galleryItems: [...prevState.galleryItems, ...pictures.hits]
+      }));
+
     } catch (error) {
-      this.setState({ error });
+      this.setState({ error: true });
     } finally {
       this.setState({ loading: false })
     }
@@ -43,7 +48,7 @@ export class App extends Component {
   }
 
   handleLoadMore = () => {
-    this.setState(prevState => prevState.page + 1);
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -56,12 +61,13 @@ export class App extends Component {
   }
 
   render() {
-    const { galleryItems, loading, query } = this.state;
-    return <div>
+    const { galleryItems, loading, error } = this.state;
+    return <AllApp>
       <Searchbar toSubmit={this.handleSubmit} />
+      {error && <div>Wooops. Error! Need reload.</div>}
       {this.state.galleryItems.length > 0 && <ImageGallery images={galleryItems} />}
-      <Btn onClick={this.handleLoadMore} />
+      {this.state.galleryItems.length > 0 && <Btn onClick={this.handleLoadMore} />}
       {loading && <Loader />}
-    </div>;
+    </AllApp>;
   }
 }

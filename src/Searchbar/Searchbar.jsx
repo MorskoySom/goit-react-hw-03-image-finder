@@ -14,7 +14,6 @@ export class Searchbar extends Component {
         evt.preventDefault();
         this.props.toSubmit(this.state.inputQuery);
         this.setState(({ inputQuery: '' }));
-        // console.log(this.state.inputQuery);
     }
 
     render() {
