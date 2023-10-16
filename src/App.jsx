@@ -21,22 +21,22 @@ export class App extends Component {
 
     try {
       this.setState({ loading: true, error: false });
-      // const pictures = await fetchImages(query, page);
-      // this.setState({ galleryItems: pictures.hits });
       const pictures = await fetchImages(query, page);
       this.setState(prevState => ({
         galleryItems: [...prevState.galleryItems, ...pictures.hits]
       }));
+      if (page < Math.ceil(pictures.totalHits / 12)) {
+        this.setState({ loadMore: true })
+      }
+      if (page >= Math.ceil(pictures.totalHits / 12)) {
+        this.setState({ loadMore: false })
+      }
 
     } catch (error) {
       this.setState({ error: true });
     } finally {
       this.setState({ loading: false })
     }
-  }
-
-  componentDidMount() {
-    this.getImages();
   }
 
   handleSubmit = (query) => {
@@ -61,12 +61,14 @@ export class App extends Component {
   }
 
   render() {
-    const { galleryItems, loading, error } = this.state;
+    const { galleryItems, loading, error, loadMore } = this.state;
+    console.log(loadMore)
+    console.log()
     return <AllApp>
       <Searchbar toSubmit={this.handleSubmit} />
       {error && <div>Wooops. Error! Need reload.</div>}
-      {this.state.galleryItems.length > 0 && <ImageGallery images={galleryItems} />}
-      {this.state.galleryItems.length > 0 && <Btn onClick={this.handleLoadMore} />}
+      {galleryItems.length > 0 && <ImageGallery images={galleryItems} />}
+      {loadMore && <Btn onClick={this.handleLoadMore} />}
       {loading && <Loader />}
     </AllApp>;
   }
